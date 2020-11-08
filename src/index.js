@@ -4,6 +4,7 @@ import SlideVerify from './slide-verify'
 
 let Slide = new SlideVerify({
   elementId: "slide-wrap",
+
   onSuccess: ({extra}) => {
     console.log("success", extra)
     Slide.destory()
@@ -20,9 +21,11 @@ let Slide = new SlideVerify({
   },
   onRefresh: () => {
     console.log("refresh")
-    return {photo: 'https://picsum.photos/310/110', x: 100, y: 60, extraInfo: {id: "123913289321"}}
+    // return {photo: 'https://picsum.photos/310/110', x: 100, y: 60, extraInfo: {id: "123913289321"}}
+    const id = Math.floor(Math.random()*1500+1)
+    return {photo: `https://picsum.photos/id/${id}/310/210`}
   },
-  photo: 'https://picsum.photos/310/210'
+  photo: 'https://picsum.photos/seed/picsum/310/210'
   // photo: ['https://picsum.photos/310/210', 'https://picsum.photos/310/210', 'https://picsum.photos/310/210']
 })
 

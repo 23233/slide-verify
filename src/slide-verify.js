@@ -167,15 +167,24 @@ export default class SlideVerify {
     this.block.width = this.w
   }
 
+
   refresh() {
     if (typeof this.onRefresh === 'function') {
       const result = this.onRefresh()
       if (result) {
-        this.photo = result.photo
-        this.x = result.x
-        this.y = result.y
-        this.extraInfo = result.extraInfo
-        this.randomPosition = false
+        if (result.hasOwnProperty("photo")) {
+          this.photo = result.photo
+        }
+        if (result.hasOwnProperty("x") && result.hasOwnProperty("y")) {
+          this.x = result.x
+          this.y = result.y
+          this.randomPosition = false
+        }
+        if (result.hasOwnProperty("extraInfo")) {
+          this.extraInfo = result.extraInfo
+        } else {
+          this.extraInfo = {}
+        }
       }
     }
     this.reset()

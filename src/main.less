@@ -128,6 +128,10 @@
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
   transition: background .2s linear;
   cursor: grab;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:active {
     color: #ffffff;
@@ -147,9 +151,10 @@
 
   .sliderIcon {
     position: relative;
-    line-height: 60px;
-    font-size: 27px;
     color: #1E90FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     svg {
       fill: #1E90FF;
@@ -166,6 +171,7 @@
   font-size: 1.5rem;
   width: 1.7rem;
   cursor: pointer;
+  z-index: 9;
   filter: drop-shadow(1px 1px 1px black);
 
   svg {
