@@ -179,6 +179,8 @@ export default class SlideVerify {
           this.x = result.x
           this.y = result.y
           this.randomPosition = false
+        } else {
+          this.randomPosition = true
         }
         if (result.hasOwnProperty("extraInfo")) {
           this.extraInfo = result.extraInfo
