@@ -3,10 +3,28 @@ import SlideVerify from './slide-verify'
 
 
 let Slide = new SlideVerify({
-  elementId: "root",
-  onSuccess: () => {console.log("success")},
-  onFail: () => {console.log("fail")},
-  onRefresh: () => {console.log("refresh")},
-  // photo: 'https://picsum.photos/310/210'
+  elementId: "slide-wrap",
+  onSuccess: ({extra}) => {
+    console.log("success", extra)
+  },
+  onFail: () => {
+    console.log("fail")
+  },
+  onVerify: (params) => {
+    console.log("验证", params)
+    return true
+  },
+  extraInfo: {
+    id: "834585438"
+  },
+  onRefresh: () => {
+    console.log("refresh")
+    return {photo: 'https://picsum.photos/310/110', x: 100, y: 60, extraInfo: {id: "123913289321"}}
+  },
+  photo: 'https://picsum.photos/310/210'
   // photo: ['https://picsum.photos/310/210', 'https://picsum.photos/310/210', 'https://picsum.photos/310/210']
 })
+
+setTimeout(() => {
+  Slide.destory()
+}, 10000)

@@ -1,12 +1,12 @@
 - styles = require("./main.css");
-#ImgVerif(style='position: relative; width: 310px; margin: 0px auto;')
-  canvas(width='310', height='210')
-  .refreshIcon(class=styles.refreshIcon)
-    i.fas.fa-sync-alt
-  canvas(class=styles.block, width='310', height='210')
-  .sliderContainer(class=styles.sliderContainer)
-    .sliderMask(class=styles.sliderMask)
-      .slider(class=styles.slider)
-        span.sliderIcon(class=styles.sliderIcon)
-          i.fas.fa-bars.fa-rotate-90
-    span.sliderText(class=styles.sliderText) #{slideTips}
+.gesture-valid-wrap(style='position: relative; width: 310px; margin: 0px auto;')
+    canvas(width='310', height='210')
+    .refreshIcon(class=styles.refreshIcon)
+        i.slide-icon.icon-shuaxin
+    canvas(class=styles.block, width='310', height='210')
+    .sliderContainer(class=styles.sliderContainer)
+        .sliderMask(class=styles.sliderMask)
+            .slider(class=styles.slider)
+                span.sliderIcon(class=styles.sliderIcon)
+                    i.slide-icon.icon-gesture(style={"font-size": "27px"})
+        span.sliderText(class=styles.sliderText) #{slideTips}

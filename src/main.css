@@ -66,6 +66,7 @@
     display: none;
 }
 
+
 .sliderText {
     color: #88949d;
 }
@@ -130,6 +131,10 @@
     cursor: pointer;
     filter: drop-shadow(1px 1px 1px black);
 }
+.refreshIcon i {
+    font-size: inherit;
+}
+
 
 /*global*/
 

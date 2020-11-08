@@ -1,6 +1,6 @@
 {
   "name": "slide-verify",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "front-end slide verify",
   "main": "dist/slide-verify.js",
   "scripts": {
@@ -24,12 +24,11 @@
   "sideEffects": [
     "*.css",
     "*.less",
-    "*.scss",
-    "./src/libs/fontawesome.js"
+    "*.scss"
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/mikexfreeze/slide-verify.git"
+    "url": "git+ssh://git@github.com/23233/slide-verify.git"
   },
   "keywords": [
     "slide",
@@ -39,9 +38,9 @@
   "author": "Micheal Xiao",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mikexfreeze/slide-verify/issues"
+    "url": "https://github.com/23233/slide-verify/issues"
   },
-  "homepage": "https://github.com/mikexfreeze/slide-verify#readme",
+  "homepage": "https://github.com/23233/slide-verify#readme",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.9.0",
