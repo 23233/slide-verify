@@ -42,7 +42,7 @@ elementId 为挂载点的 dom id
 
 ```html
 <head>
-    <script src="../node_modules/slide-verify/dist/slide-verify.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/23233/slide-verify/dist/slide-verify.js"></script>
 </head>
 <body>
    <div id="root"></div>
