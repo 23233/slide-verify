@@ -85,7 +85,7 @@ export default class SlideVerify {
     wrap.innerHTML = Verify({slideTips: intlText.slideTips})
     let el = wrap.firstChild
     let childNodes = el.childNodes
-    this.element = conEl
+    this.element = wrap
     this.el = el
     this.onSuccess = onSuccess
     this.onFail = onFail
@@ -362,7 +362,7 @@ export default class SlideVerify {
   }
 
   destory() {
-    this.element.innerHTML = ""
+    this.element.remove()
   }
 
 }
