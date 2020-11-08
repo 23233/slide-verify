@@ -6,6 +6,7 @@ let Slide = new SlideVerify({
   elementId: "slide-wrap",
   onSuccess: ({extra}) => {
     console.log("success", extra)
+    Slide.destory()
   },
   onFail: () => {
     console.log("fail")
@@ -25,6 +26,3 @@ let Slide = new SlideVerify({
   // photo: ['https://picsum.photos/310/210', 'https://picsum.photos/310/210', 'https://picsum.photos/310/210']
 })
 
-// setTimeout(() => {
-//   Slide.destory()
-// }, 10000)

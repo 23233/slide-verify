@@ -76,7 +76,7 @@ function square(x) {
 
 // 图片尺寸推荐310x210 尽可能的小
 export default class SlideVerify {
-  constructor({elementId, onSuccess, onFail, onRefresh, onVerify, lang, photo, position, extraInfo}) {
+  constructor({elementId, onSuccess, onFail, onRefresh, onVerify, lang, photo, position, extraInfo, fixed}) {
     let intlText = {}
     if (lang && lang === 'en') {
       intlText = {slideTips: 'slide to right'}
@@ -86,6 +86,9 @@ export default class SlideVerify {
     let conEl = document.getElementById(elementId)
     let wrap = document.createElement("div")
     wrap.classList.add("slide-wrap")
+    if (fixed) {
+      addClass(wrap, styles.slideFixed)
+    }
     conEl.append(wrap)
     wrap.innerHTML = Verify({slideTips: intlText.slideTips})
     let el = wrap.firstChild
