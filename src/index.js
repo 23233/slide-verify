@@ -25,6 +25,6 @@ let Slide = new SlideVerify({
   // photo: ['https://picsum.photos/310/210', 'https://picsum.photos/310/210', 'https://picsum.photos/310/210']
 })
 
-setTimeout(() => {
-  Slide.destory()
-}, 10000)
+// setTimeout(() => {
+//   Slide.destory()
+// }, 10000)
