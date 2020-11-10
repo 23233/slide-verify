@@ -170,11 +170,12 @@ export default class SlideVerify {
     this.canvasCtx.clearRect(0, 0, this.w, this.h)
     this.blockCtx.clearRect(0, 0, this.w, this.h)
     this.block.width = this.w
-    this.loading = false
   }
 
   runLoading(msg = "加载中...") {
+    if (this.loading && this.lastLoadingMsg === msg) return false;
     this.clean()
+    this.lastLoadingMsg = msg
     this.loading = true
     this.canvasCtx.fillStyle = "#999"
     this.canvasCtx.font = "bold 18px sans-serif"
@@ -205,6 +206,7 @@ export default class SlideVerify {
   }
 
   refresh() {
+    if (this.loading && this.lastLoadingMsg === "加载中...") return false
     if (typeof this.onRefresh === 'function') {
       const result = this.onRefresh()
       this.setNewInfo(result)
