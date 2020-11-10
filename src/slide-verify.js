@@ -294,7 +294,10 @@ export default class SlideVerify {
     const left = parseInt(this.block.style.left)
     if (Math.abs(left - this.x) < 10) {
       if (typeof this.onVerify === 'function') {
-        return this.onVerify({average, deviations, arr, stddev, left, "extra": this.extraInfo})
+        const r = async () => {
+          return this.onVerify({average, deviations, arr, stddev, left, "extra": this.extraInfo})
+        }
+        return r()
       }
       return true
     }
