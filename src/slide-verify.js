@@ -170,6 +170,11 @@ export default class SlideVerify {
     this.canvasCtx.clearRect(0, 0, this.w, this.h)
     this.blockCtx.clearRect(0, 0, this.w, this.h)
     this.block.width = this.w
+    this.sliderContainer.className = styles.sliderContainer
+    this.sliderIcon.innerHTML = Icons.gesture
+    this.slider.style.left = 0
+    this.block.style.left = 0
+    this.sliderMask.style.width = 0
   }
 
   runLoading(msg = "加载中...") {
@@ -205,14 +210,20 @@ export default class SlideVerify {
     }
   }
 
-  refresh() {
+  async refresh() {
     if (this.loading && this.lastLoadingMsg === "加载中...") return false
+    this.runLoading()
     if (typeof this.onRefresh === 'function') {
-      const result = this.onRefresh()
-      this.setNewInfo(result)
+      const result = await this.onRefresh()
+      this.retry(result)
     }
-    this.reset()
   }
+
+  retry(result) {
+    this.setNewInfo(result)
+    this.initImg()
+  }
+
 
   bindEvents() {
     this.el.onselectstart = () => false
@@ -290,15 +301,6 @@ export default class SlideVerify {
     return false
   }
 
-  reset() {
-    this.sliderContainer.className = styles.sliderContainer
-    this.sliderIcon.innerHTML = Icons.gesture
-    this.slider.style.left = 0
-    this.block.style.left = 0
-    this.sliderMask.style.width = 0
-    this.clean()
-    this.initImg()
-  }
 
   drawPiece(ctx, x, y) {
     ctx.beginPath()
