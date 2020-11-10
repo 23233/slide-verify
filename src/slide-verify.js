@@ -23,12 +23,12 @@ function getRandomNumberByRange(start, end) {
   return Math.round(Math.random() * (end - start) + start)
 }
 
-function createImg(onload, src) {
+function createImg(onload, src, onError) {
   const img = new Image()
   img.crossOrigin = "Anonymous"
   img.onload = onload
-  img.onerror = () => {
-    throw "loading img fail"
+  img.onerror = (err) => {
+    onError && onError(err)
   }
   img.setSrc = function (src) {
     if (window.navigator.userAgent.indexOf('Trident') > -1) { // IE浏览器无法通过img.crossOrigin跨域，使用ajax获取图片blob然后转为dataURL显示
@@ -143,7 +143,9 @@ export default class SlideVerify {
   }
 
   initImg() {
+    this.runLoading()
     const img = createImg(() => {
+      this.loading = false
       // 随机创建滑块的位置
       if (this.randomPosition) {
         this.x = getRandomNumberByRange(this.L + 70, this.w - (this.L + 10))
@@ -157,7 +159,10 @@ export default class SlideVerify {
       this.canvasCtx.fill()
       this.drawPieceInsideShadow(this.canvasCtx, this.x, this.y)
       this.drawBlock(img, this.blockCtx, this.x, this.y)
-    }, this.photo)
+    }, this.photo, function (err) {
+      console.error("loading img fail", err)
+      this.runLoading("加载失败,请重试")
+    }.bind(this))
     this.img = img
   }
 
@@ -165,29 +170,44 @@ export default class SlideVerify {
     this.canvasCtx.clearRect(0, 0, this.w, this.h)
     this.blockCtx.clearRect(0, 0, this.w, this.h)
     this.block.width = this.w
+    this.loading = false
   }
 
+  runLoading(msg = "加载中...") {
+    this.clean()
+    this.loading = true
+    this.canvasCtx.fillStyle = "#999"
+    this.canvasCtx.font = "bold 18px sans-serif"
+    this.canvasCtx.textAlign = "center"
+    this.canvasCtx.strokeWidth = 1
+    this.canvasCtx.strokeStyle = "#eee"
+    this.canvasCtx.fillText(msg, this.w / 2, this.h / 2)
+  }
+
+  setNewInfo(result) {
+    if (result) {
+      if (result.hasOwnProperty("photo")) {
+        this.photo = result.photo
+      }
+      if (result.hasOwnProperty("x") && result.hasOwnProperty("y")) {
+        this.x = result.x
+        this.y = result.y
+        this.randomPosition = false
+      } else {
+        this.randomPosition = true
+      }
+      if (result.hasOwnProperty("extraInfo")) {
+        this.extraInfo = result.extraInfo
+      } else {
+        this.extraInfo = {}
+      }
+    }
+  }
 
   refresh() {
     if (typeof this.onRefresh === 'function') {
       const result = this.onRefresh()
-      if (result) {
-        if (result.hasOwnProperty("photo")) {
-          this.photo = result.photo
-        }
-        if (result.hasOwnProperty("x") && result.hasOwnProperty("y")) {
-          this.x = result.x
-          this.y = result.y
-          this.randomPosition = false
-        } else {
-          this.randomPosition = true
-        }
-        if (result.hasOwnProperty("extraInfo")) {
-          this.extraInfo = result.extraInfo
-        } else {
-          this.extraInfo = {}
-        }
-      }
+      this.setNewInfo(result)
     }
     this.reset()
   }
@@ -200,6 +220,7 @@ export default class SlideVerify {
     let originX, originY, trail = [], isMouseDown = false
 
     const handleDragStart = function (e) {
+      if (this.loading) return false;
       originX = e.clientX || e.touches[0].clientX
       originY = e.clientY || e.touches[0].clientY
       isMouseDown = true
@@ -242,10 +263,10 @@ export default class SlideVerify {
         }, 1000)
       }
     }
-    this.slider.addEventListener('mousedown', handleDragStart)
-    this.slider.addEventListener('touchstart', handleDragStart)
-    this.block.addEventListener('mousedown', handleDragStart)
-    this.block.addEventListener('touchstart', handleDragStart)
+    this.slider.addEventListener('mousedown', handleDragStart.bind(this))
+    this.slider.addEventListener('touchstart', handleDragStart.bind(this))
+    this.block.addEventListener('mousedown', handleDragStart.bind(this))
+    this.block.addEventListener('touchstart', handleDragStart.bind(this))
     document.addEventListener('mousemove', handleDragMove)
     document.addEventListener('touchmove', handleDragMove)
     document.addEventListener('mouseup', handleDragEnd)
