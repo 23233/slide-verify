@@ -262,7 +262,7 @@ export default class SlideVerify {
       if (eventX === originX) return false
       removeClass(this.sliderContainer, styles.sliderContainer_active)
       this.trail = trail
-      const success = await this.verify()
+      let success = await this.verify()
       if (!!success) {
         this.sliderIcon.innerHTML = Icons.success
         addClass(this.sliderContainer, styles.sliderContainer_success)
