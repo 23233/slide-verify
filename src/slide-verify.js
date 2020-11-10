@@ -255,15 +255,15 @@ export default class SlideVerify {
       trail.push(moveY)
     }
 
-    const handleDragEnd = (e) => {
+    const handleDragEnd = async (e) => {
       if (!isMouseDown) return false
       isMouseDown = false
       const eventX = e.clientX || e.changedTouches[0].clientX
       if (eventX === originX) return false
       removeClass(this.sliderContainer, styles.sliderContainer_active)
       this.trail = trail
-      const success = this.verify()
-      if (success) {
+      const success = await this.verify()
+      if (!!success) {
         this.sliderIcon.innerHTML = Icons.success
         addClass(this.sliderContainer, styles.sliderContainer_success)
         typeof this.onSuccess === 'function' && this.onSuccess({extra: this.extraInfo})
@@ -294,10 +294,7 @@ export default class SlideVerify {
     const left = parseInt(this.block.style.left)
     if (Math.abs(left - this.x) < 10) {
       if (typeof this.onVerify === 'function') {
-        const r = async () => {
-          return this.onVerify({average, deviations, arr, stddev, left, "extra": this.extraInfo})
-        }
-        return r()
+        return this.onVerify({average, deviations, arr, stddev, left, "extra": this.extraInfo})
       }
       return true
     }
