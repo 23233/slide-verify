@@ -163,13 +163,12 @@
 }
 
 
-.refreshIcon {
+.refreshIcon,.closeIcon {
   position: absolute;
-  right: 0;
+  right: 2px;
   top: 0;
   color: #fff;
   font-size: 1.5rem;
-  width: 1.7rem;
   cursor: pointer;
   z-index: 9;
   filter: drop-shadow(1px 1px 1px black);
@@ -177,6 +176,15 @@
   svg {
     fill: #ffffff;
   }
+}
+
+.refreshIcon{
+  top: 20px;
+}
+
+.closeIcon{
+  z-index: 10;
+  top: -6px;
 }
 
 

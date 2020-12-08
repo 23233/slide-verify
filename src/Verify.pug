@@ -1,7 +1,8 @@
 - styles = require("./main.less");
-.gesture-valid-wrap(style='position: relative; width: 310px; margin: 0px auto;')
+.gesture-valid-wrap(style='position: relative; width: 310px; margin: 0px auto;padding: 20px 0;')
     canvas(width='310', height='210')
     .refreshIcon(class=styles.refreshIcon)
+    .closeIcon(class=styles.closeIcon)
     canvas(class=styles.block, width='310', height='210')
     .sliderContainer(class=styles.sliderContainer)
         .sliderMask(class=styles.sliderMask)
